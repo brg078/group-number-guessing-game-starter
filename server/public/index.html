@@ -11,6 +11,38 @@
   <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <h1>YOUR GAME HERE!</h1>
+    <h1>Brett & Josh Magic Number Game!</h1>
+    <p>Enter Player Names & Guesses!</p>
+    <p><input class ="nameInput" id ="nameOne" placeholder="Player One">    
+      <input class ="guessInput" id ="guessOne" placeholder="Player One Guess"></p>
+    <p><input class ="nameInput" id ="nameTwo" placeholder="Player Two">
+        <input class ="guessInput" id ="guessTwo" placeholder="Player Two Guess"></p>
+    <p>
+      <button id="nameSubmitButton">Submit Names</button>
+      <button id="guessSubmitButton">Submit Guess!</button>
+    </p>
+    <p><button id="restartButton">Restart</button></p>
+    <h2 id="totalGuesses">Total Guesses = 0</h2>
+    <table class="guessTables">
+      <thead id="tableHeadOne"></thead>
+      <tbody id="tableBodyOne"></tbody>
+    </table>
+    <table class="guessTables">
+      <thead id="tableHeadTwo"></thead>
+      <tbody id="tableBodyTwo"></tbody>
+    </table>
+
+
+
+    <!-- <div class="guessHistoryList" id="playerOneHistory">Player One History
+      <ul>
+        Rendering in player one previous guesses CSS inline block
+      </ul>
+    </div>
+    <div class="guessHistoryList" id="playerTwoHistory">Player Two History
+      <ul>
+        Rendering in player one previous guesses CSS inline block
+      </ul>
+    </div> -->
 </body>
 </html>
