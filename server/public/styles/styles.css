@@ -1,6 +1,7 @@
 body {
     background-color: cadetblue;
     font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
 }
 
 .guessHistoryList {

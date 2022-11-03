@@ -1,12 +1,12 @@
 $(document).ready(handleReady);
-let playerOne;
+let playerOne = 'Player 1';
 let playerOneGuess = [];
-let playerTwo;
+let playerTwo = 'Player 2';
 let playerTwoGuess = [];
 let guessCount = 0;
 let min = 1;
 let max = 25;
-let randomNumber
+let randomNumber = 0;
 
 function handleReady() {
   console.log("jquery is loaded!")
@@ -17,6 +17,7 @@ function handleReady() {
   $('#guessTwo').hide();
   $('#nameSubmitButton').click(addPlayers);
   $('#guessSubmitButton').click(guessCounter);
+  clearData();
 }
 
 function addPlayers () {
@@ -30,6 +31,8 @@ function addPlayers () {
   $('#guessSubmitButton').show();
   $('#guessOne').show();
   $('#guessTwo').show();
+  randomNumberGenerator(1,25);
+  console.log(randomNumber);
   render();
 }
 
@@ -46,7 +49,7 @@ function updateGuessData () {
       number: $('#guessOne').val()
     }
   }).then(function(response){
-    console.log(response);
+    // console.log('hello');
   }).catch(function(error){
     alert('request failed', error)
   });
@@ -58,7 +61,7 @@ function updateGuessData () {
       number: $('#guessTwo').val()
     }
   }).then(function(response){
-    console.log(response);
+    // console.log(response);
   }).catch(function(error){
     alert('request failed', error)
   });
@@ -73,7 +76,7 @@ function getGuessData () { //these are get calls to receive updated guess data f
     url: '/guessOne'
   }).then(function(response){
     playerOneGuess = response;
-    console.log('getting guesses: p1 guesses', playerOneGuess);
+    // console.log('getting guesses: p1 guesses', playerOneGuess);
   }).catch(function(error){
     alert('error getting', error);
   });
@@ -83,7 +86,7 @@ function getGuessData () { //these are get calls to receive updated guess data f
     url: '/guessTwo'
   }).then(function(response){
     playerTwoGuess = response;
-    render();
+    checkGuess();
   }).catch(function(error){
     alert('error getting', error);
   });
@@ -97,7 +100,7 @@ function clearData (){
     type: 'DELETE',
     url: '/guessOne'
   }).then(function(response){
-    console.log('guessOne deleted', response)
+    // console.log('guessOne deleted', response)
   }).catch(function(error){
     alert('failed clearData get', error);
   });
@@ -106,30 +109,45 @@ function clearData (){
     type: 'DELETE',
     url: '/guessTwo'
   }).then(function(response){
-    console.log('guessTwo deleted', response)
+    // console.log('guessTwo deleted', response)
   }).catch(function(error){
     alert('failed clearData get', error);
   });
-
-getGuessData();
-
+  randomNumberGenerator(1,25);
+  // console.log(randomNumber);
+  getGuessData();
+  guessCount = 0;
 }
 
 function randomNumberGenerator(min,max) {
-
-
-
+  randomNumber = parseInt(Math.random() * (max - min)+min);
 }
-
-
-
-
-
 
 function checkGuess() {
-
+  if (guessCount !=0 ) {
+    $('#guessWinner').empty();
+    console.log('in checkGuess', playerOneGuess, playerTwoGuess);
+    if (playerOneGuess.includes(randomNumber)){
+      console.log('player 1 wins');
+      $('#guessWinner').append('Player one wins!!!!');
+    } else if (playerTwoGuess.includes(randomNumber)) {
+      console.log('player 2 wins');
+      $('#guessWinner').append('Player two wins!!!!');
+    } else {
+      if (playerOneGuess[playerOneGuess.length -1] > randomNumber) {
+        $('#guessWinner').append('Player one guess too high!<br>');
+      } else {
+        $('#guessWinner').append('Player one guess too low!<br>');
+      }
+      if (playerTwoGuess[playerTwoGuess.length -1] > randomNumber) {
+        $('#guessWinner').append('Player two guess too high!<br>');
+      } else {
+        $('#guessWinner').append('Player two guess too low!<br>');
+      }
+    } 
+  }
+  render();
 }
-
 
 function render() {
   $('#tableHeadOne').empty();
